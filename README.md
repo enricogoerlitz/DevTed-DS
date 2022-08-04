@@ -1,9 +1,9 @@
-# Project: Dev-Ted-Stats
+# Project: Dev-Ted
 
 ## General
 
 Author: Enrico Goerlitz <br/>
-Initial Date: XX.XX.2022
+Initial Date: 20.08.2022
 
 ## Description
 
