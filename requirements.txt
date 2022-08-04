@@ -1,0 +1,9 @@
+# TODO: add versions!
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+xgboost
+missongno
+imblearn
