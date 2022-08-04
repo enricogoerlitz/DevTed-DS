@@ -16,6 +16,8 @@ Python <br/>
 NumPy <br/>
 Pandas <br/>
 Sklearn <br>
+Matplotlib <br/>
+Seaborn <br/>
 
 ## Copyright
 
