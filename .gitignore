@@ -1,0 +1,6 @@
+# automated generated directories
+.ipynb_checkpoints
+.mypy_cache
+.vscode
+.DS_Store
+__pycache__
