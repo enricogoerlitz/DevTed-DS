@@ -1,4 +1,4 @@
-# Project: Dev-Ted
+# Project: DevTed
 
 ## General
 
@@ -12,12 +12,13 @@ It covers useful classes and function with preconfigured visualizations, data su
 
 ## Technologies
 
-Python <br/>
-NumPy <br/>
-Pandas <br/>
-Sklearn <br>
-Matplotlib <br/>
-Seaborn <br/>
+-   Python
+-   NumPy
+-   Pandas
+-   Matplotlib
+-   Seaborn
+-   SciKit-Learn
+-   XGBoost
 
 ## Copyright
 
