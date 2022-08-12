@@ -1,0 +1,43 @@
+🤑ML.classifier
+
+🐻 RandomForestClassifierHyperModell|XGBoostClassifierHyperModell|...|.ClassifierHyperModel Class-  Modell Hyperparameter Training
+
+- Modell mit wenigen Datensätzen (so 1.000 -> testen was gut ist) mit sehr vielen Varianten von Hyperparametern trainieren
+-> wenn herausgefunden wurde, welche Hyperparameter besonders gut funktionieren (bei dem kleinen Datensatz), werden die vollständigen daten ausgewählt und mit wenigen varianten trainiert (GridSearch)
+-> GridModel wird zurückgegeben
+-> zwischenergebnisse werden geprintet
+-> GridSearch wird geprintet
+-> ...HyperModel(X_train, X_test, y_train, y_test)
+
+=> Entscheidung anhand von test-accuracy bzw. accuracy="..."
+
+=> selbe für regression
+
+🐻 HyperClassifierModel Class
+-> führt für jedes ...HyperModell die selection durch
+- beinhaltet die besten modelle
+- beinhaltet das beste modell
+-> fit() | fit(exclude=["SVM", ...], include=["log", "lm", "vc", ...])
+-> default: RFC, 
+
+Allgemeine Functionen/Klassen
+class ClassificationModel
+	- export
+	- report
+	- feature Importance
+	- ...
+
+class HyperClassifierModel
+	- __init__
+	- fit
+	- model_performance_report -> HMTL Table (sortiert) mit entsprechenden Kennzahlen
+
+
+==> Report aller Kennzahlen in HTML für JupyterNotebook
+
+🤑ML.regressor
+
+
+
+
+

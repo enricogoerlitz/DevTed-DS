@@ -1,1 +1,11 @@
+eigenes design -> auswahl einer palette!
 plot_dist -> 4 plots
+
+pointplot|barplot|countplot-report ->    
+    - plots with pivottable
+    - wichtigsten plot-argumente mit in methodenkopf aufnehmen + kwargs
+    - data-table -> bool -> zeigen oder nicht (also zurückgeben oder nicht)
+    - top_n_records | last_n_records
+    - möglickeit data_table selbst zu übergeben
+
+stackedbarplot
