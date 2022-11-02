@@ -1,0 +1,14 @@
+UNNAMED = "Unnamed: 0"
+COUNT = "count"
+MEAN = "mean"
+SUM = "sum"
+MEDIAN = "median"
+MAX = "max"
+MIN = "min"
+
+TOP = "Top"
+HIGH = "High"
+MEDIUM = "Medium"
+LOW = "Low"
+
+CATEGORY = "category"

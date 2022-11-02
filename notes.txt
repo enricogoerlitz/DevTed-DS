@@ -1,0 +1,137 @@
+PLOT
+    -> default plot settings
+        - change with dt.plot.set(...) / dt.plot.get_setting() -> alle settings printen [TDD_TEST]
+
+    -> [wichtigsten Params übernehmen und title[CAPSLOC] -> default df_nameCAPSLOC, xlabel, ylabel hinzufügen] [TDD_TEST -> keine Fehler treten auf! bzw. instance checken!]
+        - histplot
+        - countplot
+        - lineplot
+        - barplot (incl. stacked)
+        - pointplot
+        - scatterplot
+        - regplot & lmplot in one!
+        - kde plot with hue (like in Titanic Facitgrid)
+
+        + sorted -> bool (by values, by categoriesArr ...)
+        + figsize + figsize_cat=[small, medium, large, xlarge]
+        + rotate x/y
+        + order
+    
+    -> hinzufügen [TDD_TEST -> keine Fehler treten auf! bzw instance checken!]
+        - barhplot (incl. stacked)
+        - plotgrid -> Array of dt.plots
+        - scatterkdeplot -> wie googleplaystore -> df_price_cleaned[df_price_cleaned[DOWNLOADS] < 2000000]
+
+        + sorted_values -> bool
+        + figsize + figsize_cat=[small, medium, large, xlarge]
+        + rotate x/y
+        + weitere gewollte features!
+    
+
+    PLOT.UTILS (einmal plot.py & plot as dir)
+        ----------------
+        from matplotlib.ticker import MaxNLocator
+        def xaxis_to_integers(ax: any) -> None:
+            ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+
+        def yaxis_to_integers(ax: any) -> None:
+            ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+        ----------------
+        EXPORT
+        def get_fig_title(dirpath: str, plot_name: str) -> str:
+            try:
+                plot_count = len(glob(join(dirpath, "*.jpg"))) + 1
+                count_prefix = zero_prefix(plot_count)
+
+                if plot_name.strip():
+                    plotname = plot_name.replace(" ", "_").lower()
+                    return f"{count_prefix}_{plotname}"
+
+                plotname = plt.gcf().axes[0].get_title()
+                if plotname.strip():
+                    plotname = plotname.replace(" ", "_").lower()
+                    return f"{count_prefix}_{plotname}.jpg"
+
+                return f"{count_prefix}_{uuid.uuid1().hex}.jpg"
+            except:
+                return f"{uuid.uuid1().hex}.jpg"
+
+        def get_plot_dirpath(notebook_name="notebook1") -> str:
+            return join(os.getcwd(), "plots", notebook_name)
+
+        def saveplot(notebook_name="notebook1", plot_name="") -> str:
+            dirpath = get_plot_dirpath(notebook_name)
+            if not exists(dirpath):
+                os.makedirs(dirpath)
+
+            plotname = get_fig_title(dirpath, plot_name)
+            full_plot_path = join(dirpath, plotname)
+
+            plt.savefig(full_plot_path)
+        ----------------
+
+
+def clear_plots_dir(notebook_name="notebook1") -> None:
+    dirpath = get_plot_dirpath(notebook_name)
+    if exists(dirpath):
+        shutil.rmtree(dirpath)
+
+
+CONST (Konstanten für alle settings etc!)
+    -> def func(method: Literal['simple_method', 'some_other_method']): => !!! USE THIS !!!
+    -> OR:
+    class FigSize(Enum):
+        SMALL = 1
+        MEDIUM = 2
+        LARGE = 3
+        XLARGE = 4
+
+    def f(method: FigSize):
+        if(method == FigSize.LARGE):
+            print("IS_LARGE")
+        else:
+            print("ERR")
+
+    f(FigSize.LARGE)
+
+UTILS
+    -> eine helfer-methode um alle spalten eines DF zu lesen und dann eine ausgabe mit der KonstantenName = columnName [TDD_TEST]
+        - dann kann man die ausgabe kopieren und nochmal bearbeiten
+    
+    -> pvttbl_to_df (to_records)
+    -> df_checkpoint
+    -> delete_checkpoints
+    ----------------
+    HOUR_MINUTES = 60
+    def zero_prefix(number_text: str) -> str:
+        return f"0{number_text}" if int(number_text) < 10 else f"{number_text}"
+
+    # def hrstr(minutes, suffix="h", usfmt=False, milliseconds=False)
+    def get_hours_string(minutes: float | int) -> str:
+        hour_string  = zero_prefix(int(minutes / HOUR_MINUTES))
+        minutes_string = zero_prefix(int(minutes % HOUR_MINUTES))
+        return f"{hour_string}:{minutes_string}h"
+    ----------------
+    def to_category(df: pd.DataFrame, column: str, category_order: list | tuple):
+        # validate...
+        return df[column].astype(dt.const.CATEGORY).cat.reorder_categories(category_order, ordered=True)
+    ----------------
+
+STATS
+    -> Kontingenztabelle [TDD_TEST]
+        - prop and abs (default -> prop)
+
+preprocessing
+    -> read_csv => returns tuple -> raw_data_df and working_df
+        - read_csv and then df.copy()
+
+
+DECORATORS
+    @zipparams
+        ->  die parameter sind extrem viele. damit man mit diesen gut arbeiten kann,
+            setzt man den decorator und dieser zipt alle parameter in ein dict -> zipped_params => ** zipped_params übergeben
+            + zipped_params(ignore=[]) !!! ignorieren von parametern!
+
+TYPING
+    -> interfaces für rückgabewerte :)
+        -> immer ergeben lassen, fehlendes typing hinzufügen und ggf. methoden überschreiben mit typing -> IDataFrame
