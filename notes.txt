@@ -69,13 +69,42 @@ PLOT
 
             plt.savefig(full_plot_path)
         ----------------
+        def clear_plots_dir(notebook_name="notebook1") -> None:
+            dirpath = get_plot_dirpath(notebook_name)
+            if exists(dirpath):
+                shutil.rmtree(dirpath)
+        ----------------
+        def plot_target_relation(column_name):
+            _, axes = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
+            ax1, ax2 = axes
+            
+            target_pvt = df.pivot_table(index=column_name, values=TARGET, aggfunc="mean").sort_index()
 
+            sns.pointplot(x=TARGET, y=column_name, data=df, ax=ax1).set_title(f"Relation Hazardous and {column_name}")
+            sns.regplot(x=target_pvt.index, y=target_pvt.to_numpy(), ci=False, line_kws={"color": "C1"}, scatter_kws={"alpha": 0.5}, ax=ax2).set_title(f"Linear Relation Hazardous and {column_name}")
+        ----------------
+        def plot_target_relation_cat(column_name):
+            g = sns.pointplot(x=column_name, y=TARGET, data=df)
+            g.set_title(f"Relation Hazardous-Mean and {column_name}")
+            g.tick_params(axis='x', rotation=45)
+        ----------------
+        def plot_dist(column_name):
+            _, axes = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
+            ax1, ax2 = axes
+            
+            title = f"Distribution of {column_name}"
+            ax1.set_title(title)
+            ax2.set_title(title)
 
-def clear_plots_dir(notebook_name="notebook1") -> None:
-    dirpath = get_plot_dirpath(notebook_name)
-    if exists(dirpath):
-        shutil.rmtree(dirpath)
+            sns.boxplot(x=column_name, data=df, ax=ax1)
+            df[column_name].hist(ax=ax2)
 
+            print(f"Skew: \t {df[column_name].skew()}")
+        ----------------
+        def plot_dist_cat(column_name):
+            g = sns.countplot(x=column_name, data=df, color="C0")
+            g.tick_params(axis='x', rotation=45)
+            g.set_title(f"Distribution of {column_name}")
 
 CONST (Konstanten für alle settings etc!)
     -> def func(method: Literal['simple_method', 'some_other_method']): => !!! USE THIS !!!
@@ -97,7 +126,15 @@ CONST (Konstanten für alle settings etc!)
 UTILS
     -> eine helfer-methode um alle spalten eines DF zu lesen und dann eine ausgabe mit der KonstantenName = columnName [TDD_TEST]
         - dann kann man die ausgabe kopieren und nochmal bearbeiten
+        - UND: bei Großbuchstaben im string -> _ und    _ = _
+                                                        - = _ 
+                                                        . -> _ (außer am ende, dann weg)
+                                                        und generell Sonderzeichen mit _ replacen! (regex)
     
+    -> missingno in dt.msno... einbetten
+    -> reorder columns function -> [add_col(data: Series, DaraFrame = None, to=index | colname = None, before=True), move_col(Series | DataFrame), to: int | str = 0]
+        -> weitere?
+    -> dt.set() -> alle settings setzen (default wie gewollt)
     -> pvttbl_to_df (to_records)
     -> df_checkpoint
     -> delete_checkpoints
@@ -121,10 +158,16 @@ STATS
     -> Kontingenztabelle [TDD_TEST]
         - prop and abs (default -> prop)
 
-preprocessing
+PREPROCESSING
     -> read_csv => returns tuple -> raw_data_df and working_df
         - read_csv and then df.copy()
 
+DB
+    -> DATABASE-Class
+        -> mit SQL-Alchemy Engine für postgres, MySQL, MSSQL-SERVER, SQLITE
+        -> query_executer
+        -> mit pandas und ohne!
+    -> NoSQL connector für mongodb!
 
 DECORATORS
     @zipparams
@@ -135,3 +178,45 @@ DECORATORS
 TYPING
     -> interfaces für rückgabewerte :)
         -> immer ergeben lassen, fehlendes typing hinzufügen und ggf. methoden überschreiben mit typing -> IDataFrame
+
+--------------------------------------- ML & DL ---------------------------------------
+
+plot
+    DfClassificationPlotter(df, ignore=[col1, col2...])
+        -> info()
+        -> describe_nummeric
+        -> describe_categorical
+        -> isna
+        -> nunique
+        -> plot_missing
+        -> plot_numeric_hist
+        -> plot_numeric_pairplot
+        -> plot_numeric_corr
+        -> plot_numeric_dist(colname)
+        -> plot_categorical_dist(colname)
+        -> plot_numeric_target_relation
+        -> plot_categorical_target_relation
+        -> plot_target_dist
+
+PREPROCESSING
+    -> feature_target_split(df: DataFrame, target: str) -> tuple[X, y]
+    -> train_test_validation_split()
+    -> train_test_validation_split_raw(df: DataFrame, target: str, test_size, val_size, radom_state etc)
+        -> incl. feat_tar_split
+
+UTILS
+    print_shapes(...: DataFrame | Series | np.array)
+
+
+EVALUATION
+    -> print_classification_report -> print_model_classification_report (noch verfeinern!)
+    -> print_feature_importance
+    -> print_classfification_eval_metrics
+
+MODELING
+    -> fast_grid_search
+        -> erstmal testen, ob das mit wenig daten überhaupt geht...
+        -> mehrere modellarten -> modelle vorgeben und mit bool ein/ausschalten!
+        -> mit weiteren modellen erweiterbar machen -> liste aus FGSModel(modellclass, ...params)
+        -> 
+        -> inkl. uuid-log.txt
