@@ -139,7 +139,8 @@ UTILS
     -> dt.set() -> alle settings setzen (default wie gewollt)
     -> pvttbl_to_df (to_records)
     -> df_checkpoint
-    -> delete_checkpoints
+    -> delete_checkpoints#
+    -> PDF Reader -> Text and as image PyPDF2, pdf2image
     ----------------
     HOUR_MINUTES = 60
     def zero_prefix(number_text: str) -> str:
