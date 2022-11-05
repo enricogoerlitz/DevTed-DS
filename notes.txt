@@ -10,7 +10,9 @@ PLOT
         - pointplot
         - scatterplot
         - regplot & lmplot in one!
+        - kdeplot
         - kde plot with hue (like in Titanic Facitgrid)
+        ...
 
         + sorted -> bool (by values, by categoriesArr ...)
         + figsize + figsize_cat=[small, medium, large, xlarge]
@@ -19,7 +21,7 @@ PLOT
     
     -> hinzufügen [TDD_TEST -> keine Fehler treten auf! bzw instance checken!]
         - barhplot (incl. stacked)
-        - plotgrid -> Array of dt.plots
+        - plotgrid -> Array of dt.plots (titles: list[str]) ax5.set_title( wenn nötig!
         - scatterkdeplot -> wie googleplaystore -> df_price_cleaned[df_price_cleaned[DOWNLOADS] < 2000000]
 
         + sorted_values -> bool
@@ -161,6 +163,8 @@ STATS
 PREPROCESSING
     -> read_csv => returns tuple -> raw_data_df and working_df
         - read_csv and then df.copy()
+    -> numcolumns(ignore=[ID]) => df.drop(columns=[ID]).describe().columns
+    -> catcolumns(ignore=[COL]) => df.drop(columns=[ID]).describe(include=["O"]).columns
 
 DB
     -> DATABASE-Class
@@ -193,7 +197,7 @@ plot
         -> plot_numeric_pairplot
         -> plot_numeric_corr
         -> plot_numeric_dist(colname)
-        -> plot_categorical_dist(colname)
+        -> plot_categorical_dist(colname) (skew, hist)
         -> plot_numeric_target_relation
         -> plot_categorical_target_relation
         -> plot_target_dist
@@ -203,20 +207,93 @@ PREPROCESSING
     -> train_test_validation_split()
     -> train_test_validation_split_raw(df: DataFrame, target: str, test_size, val_size, radom_state etc)
         -> incl. feat_tar_split
+    -> log_transform
+        with fillna(0) after log10() 
+        def log_transform(df: DataFrame):
+            return np.log10(df)
+    -> scale(Scaler: IScaler, df_train: DataFrame, columns: list[str] df_test: DataFrame = None) -> DataFrame | tuple[DataFrame]
+    -> borderline_smote(df: DataFrame, target: str)
+        -> to numpy
+        -> BorderlineSmote...
+        -> to df back
+    -> pd.get_dummies in better!
+
 
 UTILS
-    print_shapes(...: DataFrame | Series | np.array)
+    -> print_df_head(start_col_idx)
+    -> print_shapes(...: DataFrame | Series | np.array) (nur: dt.shapes)
+    -> savenpz, savefurther | loadnpz, loadfurther (inkl. colnames?)
+    ---------------------------------------------
+    -> savemodel, loadmodel (model: IModel, path, filename, timestamp: bool = True)
+    def export_model(model, model_name):
+    timestamp_string = str(datetime.now())[:19].replace(" ", "").replace(":", "").replace("-", "")
+    export_path = f"../trained_models/{timestamp_string}_{model_name}"
+    with open(export_path, "wb") as model_file:
+        pickle.dump(model, model_file)
+    
+    return export_path
+    ---------------------------------------------
+
+def load_model(model_path):
+    with open(model_path, "rb") as model_file:
+        return pickle.load(model_file)
+
 
 
 EVALUATION
     -> print_classification_report -> print_model_classification_report (noch verfeinern!)
     -> print_feature_importance
     -> print_classfification_eval_metrics
+    ------------------------------------------
+    -> print_top_rankings (gridserach)
+    def print_top_rankings(grid_model, top=10):
+    sorted_zipped_report = sorted(
+        zip(
+            grid_model.cv_results_["params"], 
+            grid_model.cv_results_["mean_test_score"], 
+            grid_model.cv_results_["rank_test_score"]
+        ), key=lambda item: item[2]
+    )
+    for (i, (params, score, rank)) in enumerate(sorted_zipped_report):
+        if i >= top:
+            break
+
+        print(f"Rank: {rank}\tScore: {score}\nParam: {params}\n")
+    ------------------------------------------
+    -> print_model_scores(models: list[IModel], metric="f1"|"accuracy"|"recall"..., X) -> Series
+    recall_models = Series(
+    data=[
+        recall_score(y_test, knn_best_model.predict(X_test)),
+        recall_score(y_test, rf_best_model.predict(X_test)),
+        recall_score(y_test, svm_best_model.predict(X_test)),
+        recall_score(y_test, xgb_best_model.predict(X_test)),
+    ],
+    index=["KNN", "RandomForest", "SVM", "XGBoost"] -> names.UPPER und möglichkeit array
+)
+
+recall_models.sort_values(ascending=False)
+------------------------------------------
+-> print_score(Score: callable, X, y, decimals: int = 3)
+    f"{np.round(f1_score(y_val, MODEL_PREDICTIONS) * 100, 3)}%"
+
 
 MODELING
-    -> fast_grid_search
+    -> fast_grid_search (incl_voting_classifier: boolean = True)
         -> erstmal testen, ob das mit wenig daten überhaupt geht...
         -> mehrere modellarten -> modelle vorgeben und mit bool ein/ausschalten!
         -> mit weiteren modellen erweiterbar machen -> liste aus FGSModel(modellclass, ...params)
         -> 
         -> inkl. uuid-log.txt
+    
+    -> IModel, Model(IModel)
+    class Model(IModel):
+     def __init__(self, model, scaler):
+         self.model = model
+         self.scaler = scaler
+   
+     def predict(self, values):
+         prep_values = self.preprocess_values(values)
+         pass
+
+     def preprocess_values(self, values):
+         pass
