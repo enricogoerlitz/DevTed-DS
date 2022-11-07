@@ -18,6 +18,7 @@ PLOT
         + figsize + figsize_cat=[small, medium, large, xlarge]
         + rotate x/y
         + order
+        + show Data-Table (bool=False!)
     
     -> hinzufügen [TDD_TEST -> keine Fehler treten auf! bzw instance checken!]
         - barhplot (incl. stacked)
@@ -141,6 +142,7 @@ UTILS
     -> df_checkpoint
     -> delete_checkpoints#
     -> PDF Reader -> Text and as image PyPDF2, pdf2image
+    -> get_date_format("DD-MM-YYYY") or HELP_DATE_FORMATS -> print dateformats
     ----------------
     HOUR_MINUTES = 60
     def zero_prefix(number_text: str) -> str:
