@@ -5,7 +5,7 @@ Brings intellisense with the most used params.
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-from typing import Literal, Callable
+from typing import Literal, Callable, Union
 
 from .typing import Vector, Marker, LineStyle, PandasObject
 from ._decorators import zipparams
@@ -21,15 +21,15 @@ def histplot(
     x: str = None,
     data: DataFrame = None,
     title: str = "TITLE",
-    xlabel: str | None = None,
-    ylabel: str | None = None,
-    bins: str | int | Vector = "auto",
-    hue: str | None = None,
+    xlabel: Union[str, None] = None,
+    ylabel: Union[str, None] = None,
+    bins: Union[str, int, Vector] = "auto",
+    hue: Union[str, None] = None,
     kde: bool = False,
-    ax: plt.Axes | None = None,
+    ax: Union[plt.Axes, None] = None,
     set_kwargs: dict = None,
     cumulative: bool = False,
-    kde_kws: dict | None = None,
+    kde_kws: Union[dict, None] = None,
     zip_params: dict
 ) -> plt.Axes:
     set_kwargs = _prep_set_kwargs(
@@ -49,16 +49,16 @@ def histplot(
 def countplot(
     *, 
     x: str = None,
-    data: PandasObject | None = None,
+    data: Union[PandasObject, None] = None,
     title: str = "TITLE",
-    xlabel: str | None = None,
-    ylabel: str | None = None,
-    hue: str | None = None,
-    hue_order: Vector | None = None,
-    order: Vector | None = None,
+    xlabel: Union[str, None] = None,
+    ylabel: Union[str, None] = None,
+    hue: Union[str, None] = None,
+    hue_order: Union[Vector, None] = None,
+    order: Union[Vector, None] = None,
     orient: Literal["h", "v"] = "v",
     set_kwargs: dict = None,
-    ax: plt.Axes | None = None,
+    ax: Union[plt.Axes, None] = None,
     zip_params: dict
 ) -> plt.Axes:
     if orient == "h":
@@ -80,20 +80,20 @@ def countplot(
 @zipparams(ignore=BASE.split())
 def pointplot(
     *,
-    x: str | None = None,
-    y: str | None = None,
-    hue: str | None = None,
-    data: PandasObject | None = None,
+    x: Union[str, None] = None,
+    y: Union[str, None] = None,
+    hue: Union[str, None] = None,
+    data: Union[PandasObject, None] = None,
     title: str = "TITLE",
-    xlabel: str | None = None,
-    ylabel: str | None = None,
-    order: Vector | None = None,
-    hue_order: Vector | None = None,
+    xlabel: Union[str, None] = None,
+    ylabel: Union[str, None] = None,
+    order: Union[Vector, None] = None,
+    hue_order: Union[Vector, None] = None,
     ci: int = 95,
     errorbar: Literal["ci", "pi", "se", "sd"] = "ci",
     markers: Marker = "o",
     linestyles: LineStyle = "-",
-    ax: plt.Axes | None = None,
+    ax: Union[plt.Axes, None] = None,
     set_kwargs: dict = None,
     zip_params: dict
 ) -> plt.Axes:
@@ -125,9 +125,9 @@ def _plot(
 
 def _prep_set_kwargs(
     title: str, 
-    xlabel: str | None,
-    ylabel: str | None,
-    set_kwargs: dict | None
+    xlabel: Union[str, None],
+    ylabel: Union[str, None],
+    set_kwargs: Union[dict, None]
 ) -> dict:
     set_kwargs = (
         {"title": title} | 
