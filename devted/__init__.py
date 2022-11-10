@@ -1,4 +1,3 @@
-from ._const import *
 from ._plot import *
 from ._preprocessing import *
 from ._stats import *
