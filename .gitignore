@@ -1,7 +1,9 @@
 # automated generated directories
+__pycache__
 .ipynb_checkpoints
 .mypy_cache
 .vscode
 .DS_Store
-__pycache__
+
+# files
 *.csv

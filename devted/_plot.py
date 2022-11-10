@@ -12,8 +12,10 @@ from ._decorators import zipparams
 
 from pandas import Series, DataFrame
 
+
 BASE = "title xlabel ylabel set_kwargs"
 ORIENT = f"{BASE} orient"
+
 
 @zipparams(ignore=BASE.split())
 def histplot(
