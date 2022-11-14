@@ -34,6 +34,7 @@ def histplot(
     kde_kws: Union[dict, None] = None,
     zip_params: dict
 ) -> plt.Axes:
+    if not xlabel: xlabel = x
     set_kwargs = _prep_set_kwargs(
         title,
         xlabel,
@@ -64,8 +65,14 @@ def countplot(
     zip_params: dict
 ) -> plt.Axes:
     if orient == "h":
+        if not ylabel: ylabel = x
+        if not xlabel: xlabel = "Count"
         zip_params["y"] = zip_params["x"]
         del zip_params["x"]
+    else:
+        if not xlabel: xlabel = x
+        if not ylabel: ylabel = "Count"
+
     set_kwargs = _prep_set_kwargs(
         title,
         xlabel,
@@ -99,6 +106,8 @@ def pointplot(
     set_kwargs: dict = None,
     zip_params: dict
 ) -> plt.Axes:
+    if not xlabel: xlabel = x
+    if not ylabel: ylabel = y
     set_kwargs = _prep_set_kwargs(
         title,
         xlabel,
@@ -127,6 +136,8 @@ def scatterplot(
     set_kwargs: dict = None,
     zip_params: dict
 ) -> plt.Axes:
+    if not xlabel: xlabel = x
+    if not ylabel: ylabel = y
     set_kwargs = _prep_set_kwargs(
         title,
         xlabel,
@@ -135,6 +146,37 @@ def scatterplot(
     )
     return _plot(
         sns.scatterplot,
+        zip_params,
+        set_kwargs
+    )
+
+
+@zipparams(ignore=BASE.split())
+def barplot(
+    *,
+    x: str = None,
+    y: str = None,
+    data: DataFrame = None,
+    title: str = "TITLE",
+    xlabel: Union[str, None] = None,
+    ylabel: Union[str, None] = None,
+    order: Union[Vector, None] = None,
+    hue: Union[str, None] = None,
+    hue_order: Union[Vector, None] = None,
+    ci: Union[int, None] = None,
+    orient: Literal["h", "v"] = "v",
+    ax: Union[plt.Axes, None] = None,
+    set_kwargs: dict = None,
+    zip_params: dict
+) -> plt.Axes:
+    set_kwargs = _prep_set_kwargs(
+        title,
+        xlabel,
+        ylabel,
+        set_kwargs
+    )
+    return _plot(
+        sns.barplot,
         zip_params,
         set_kwargs
     )

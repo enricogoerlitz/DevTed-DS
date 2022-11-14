@@ -1,31 +1,30 @@
 """
-Tests the functions of the _plot.py module
+Tests the module _plot.py
 """
 import devted as dt
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from tdata import DATA
 from unittest import TestCase
 
 
-# Data
+# Helper
 
 
-df = pd.read_csv("titanic_data.csv")
 SURVIVED = "Survived"
 EMBARKED = "Embarked"
 AGE = "Age"
 CLASS = "Pclass"
+FARE = "Fare"
 
-
-# Helper constants
-
+DEFAULT_TITLE = "TITLE"
 TEST_TITLE = "testTitle"
 TEST_XLABEL = "testXLabel"
 TEST_YLABEL = "testYLabel"
-EXP_TITLE = "TestTitle"
-EXP_XLABEL = "TestXLabel"
-EXP_YLABEL = "TestYLabel"
+EXP_TITLE = "TESTTITLE"
+EXP_XLABEL = "Testxlabel"
+EXP_YLABEL = "Testylabel"
 
 
 def check_title_and_labels(
@@ -33,16 +32,18 @@ def check_title_and_labels(
     ax: plt.Axes,
     exp_title: str = EXP_TITLE,
     exp_xlabel: str = EXP_XLABEL,
-    exp_ylabel: str = EXP_YLABEL
+    exp_ylabel: str = EXP_YLABEL,
 ) -> None:
     """Checks title and labels"""
+    cls_name = test_cls_ptr.__class__.__name__
+    err_msg = f"Class: {cls_name}"
     title = ax.get_title()
     xlabel = ax.get_xlabel()
     ylabel = ax.get_ylabel()
 
-    test_cls_ptr.assertEqual(title, exp_title)
-    test_cls_ptr.assertEqual(xlabel, exp_xlabel)
-    test_cls_ptr.assertEqual(ylabel, exp_ylabel)
+    test_cls_ptr.assertEqual(title, exp_title, err_msg)
+    test_cls_ptr.assertEqual(xlabel, exp_xlabel, err_msg)
+    test_cls_ptr.assertEqual(ylabel, exp_ylabel, err_msg)
 
 
 class TestHelper(TestCase):
@@ -59,12 +60,17 @@ class TestHistPlot(TestCase):
     def setUp(self):
         self.X = AGE
         self.Y = None
-        self.DATA = df
+        self.DATA = DATA
 
     def test_basic(self):
         """Tests the basic call with default params"""
         ax = dt.histplot(x=self.X, data=self.DATA)
-        check_title_and_labels(self, ax)
+        check_title_and_labels(
+            self,
+            ax,
+            exp_xlabel=self.X,
+            exp_title=DEFAULT_TITLE
+        )
 
     def test_basic_2(self):
         """Tests the basic call with kwargs"""
@@ -97,18 +103,23 @@ class TestCountPlot(TestCase):
     def setUp(self):
         self.X = EMBARKED
         self.Y = None
-        self.DATA = df
+        self.DATA = DATA
 
     def test_basic(self):
         """Tests the basic call with default params"""
         ax = dt.countplot(x=self.X, data=self.DATA)
-        check_title_and_labels(self, ax)
+        check_title_and_labels(
+            self,
+            ax,
+            exp_xlabel=self.X,
+            exp_ylabel="Count",
+            exp_title=DEFAULT_TITLE
+        )
 
     def test_basic_2(self):
         """Tests the basic call with kwargs"""
         ax = dt.countplot(
             x=self.X,
-            y=self.Y,
             data=self.DATA,
             title=TEST_TITLE,
             xlabel=TEST_XLABEL,
@@ -136,12 +147,18 @@ class TestPointPlot(TestCase):
     def setUp(self):
         self.X = CLASS
         self.Y = SURVIVED
-        self.DATA = df
+        self.DATA = DATA
 
     def test_basic(self):
         """Tests the basic call with default params"""
-        ax = dt.pointplot(x=self.X, data=self.DATA)
-        check_title_and_labels(self, ax)
+        ax = dt.pointplot(x=self.X, y=self.Y, data=self.DATA)
+        check_title_and_labels(
+            self,
+            ax,
+            exp_xlabel=self.X,
+            exp_ylabel=self.Y,
+            exp_title=DEFAULT_TITLE
+        )
 
     def test_basic_2(self):
         """Tests the basic call with kwargs"""
@@ -158,6 +175,98 @@ class TestPointPlot(TestCase):
     def test_basic_3(self):
         """Tests the basic call with set_kwargs"""
         ax = dt.pointplot(
+            x=self.X,
+            y=self.Y,
+            data=self.DATA,
+            set_kwargs={
+                "title": TEST_TITLE,
+                "xlabel": TEST_XLABEL,
+                "ylabel": TEST_YLABEL
+            }
+        )
+        check_title_and_labels(self, ax)
+
+
+class TestScatterPlot(TestCase):
+    """Tests histplot"""
+
+    def setUp(self):
+        self.X = CLASS
+        self.Y = SURVIVED
+        self.DATA = DATA
+
+    def test_basic(self):
+        """Tests the basic call with default params"""
+        ax = dt.scatterplot(x=self.X, y=self.Y, data=self.DATA)
+        check_title_and_labels(
+            self,
+            ax,
+            exp_xlabel=self.X,
+            exp_ylabel=self.Y,
+            exp_title=DEFAULT_TITLE
+        )
+
+    def test_basic_2(self):
+        """Tests the basic call with kwargs"""
+        ax = dt.scatterplot(
+            x=self.X,
+            y=self.Y,
+            data=self.DATA,
+            title=TEST_TITLE,
+            xlabel=TEST_XLABEL,
+            ylabel=TEST_YLABEL,
+        )
+        check_title_and_labels(self, ax)
+
+    def test_basic_3(self):
+        """Tests the basic call with set_kwargs"""
+        ax = dt.scatterplot(
+            x=self.X,
+            y=self.Y,
+            data=self.DATA,
+            set_kwargs={
+                "title": TEST_TITLE,
+                "xlabel": TEST_XLABEL,
+                "ylabel": TEST_YLABEL
+            }
+        )
+        check_title_and_labels(self, ax)
+
+
+class TestBarPlot(TestCase):
+    """Tests histplot"""
+
+    def setUp(self):
+        self.X = EMBARKED
+        self.Y = FARE
+        self.DATA = DATA
+
+    def test_basic(self):
+        """Tests the basic call with default params"""
+        ax = dt.barplot(x=self.X, y=self.Y, data=self.DATA)
+        check_title_and_labels(
+            self,
+            ax,
+            exp_xlabel=self.X,
+            exp_ylabel=self.Y,
+            exp_title=DEFAULT_TITLE
+        )
+
+    def test_basic_2(self):
+        """Tests the basic call with kwargs"""
+        ax = dt.barplot(
+            x=self.X,
+            y=self.Y,
+            data=self.DATA,
+            title=TEST_TITLE,
+            xlabel=TEST_XLABEL,
+            ylabel=TEST_YLABEL,
+        )
+        check_title_and_labels(self, ax)
+
+    def test_basic_3(self):
+        """Tests the basic call with set_kwargs"""
+        ax = dt.barplot(
             x=self.X,
             y=self.Y,
             data=self.DATA,
