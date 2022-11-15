@@ -20,7 +20,7 @@ PLOT
         + order
         + show Data-Table (bool=False!)
     
-    -> hinzufügen [TDD_TEST -> keine Fehler treten auf! bzw instance checken!]
+    -> hinzufügen
         - barhplot (incl. stacked)
         - plotgrid -> Array of dt.plots (titles: list[str]) ax5.set_title( wenn nötig!
         - scatterkdeplot -> wie googleplaystore -> df_price_cleaned[df_price_cleaned[DOWNLOADS] < 2000000]

@@ -182,6 +182,75 @@ def barplot(
     )
 
 
+@zipparams(ignore=BASE.split())
+def lineplot(
+    *,
+    x: str = None,
+    y: str = None,
+    data: DataFrame = None,
+    title: str = "TITLE",
+    xlabel: Union[str, None] = None,
+    ylabel: Union[str, None] = None,
+    hue: Union[str, None] = None,
+    hue_order: Union[Vector, None] = None,
+    estimator: Literal["mean", "median", "min", "max"] = "mean",
+    ci: Union[int, None] = 95,
+    ax: Union[plt.Axes, None] = None,
+    set_kwargs: dict = None,
+    zip_params: dict
+) -> plt.Axes:
+    if not xlabel: xlabel = x
+    if not ylabel: ylabel = y
+    set_kwargs = _prep_set_kwargs(
+        title,
+        xlabel,
+        ylabel,
+        set_kwargs
+    )
+    return _plot(
+        sns.lineplot,
+        zip_params,
+        set_kwargs
+    )
+
+
+@zipparams(ignore=BASE.split())
+def regplot(
+    *,
+    x: str = None,
+    y: str = None,
+    data: DataFrame = None,
+    title: str = "TITLE",
+    xlabel: Union[str, None] = None,
+    ylabel: Union[str, None] = None,
+    hue: Union[str, None] = None,
+    hue_order: Union[Vector, None] = None,
+    estimator: Literal["mean", "median", "min", "max"] = "mean",
+    ci: int = 95,
+    x_ci: Union[Literal["ci", "sd"], int, None] = "ci", 
+    scatter: bool = True,
+    fit_reg: bool = True,
+    marker: Marker = "o",
+    logistic: bool = False,
+    ax: Union[plt.Axes, None] = None,
+    scatter_kws: Union[dict, None] = None,
+    line_kws: Union[dict, None] = None,
+    set_kwargs: dict = None,
+    zip_params: dict
+) -> plt.Axes:
+    set_kwargs = _prep_set_kwargs(
+        title,
+        xlabel,
+        ylabel,
+        set_kwargs
+    )
+    return _plot(
+        sns.regplot,
+        zip_params,
+        set_kwargs
+    )
+
+
 # Private Helper-Functions
 
 

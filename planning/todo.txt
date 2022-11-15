@@ -1,0 +1,80 @@
+CONST       -> Add continuously
+TYPING      -> Add continuously
+DECORATORS  -> Add continuously
+
+PLOTS
+    1.1)  Build basic plots
+    1.2)  Test them
+            a)  test_plot.ipynb
+            b)  /test/test_plot.py
+    2.1)  Add wanted features
+    2.2)  Test them
+            a)  test_plot.ipynb
+            b)  /test/test_plot.py
+
+
+PLOT-UTILS
+    0.1)  Add /_utils/_plot
+    1.1)  Add functions to utils
+    1.2)  Test them
+            - test_utils_plot.ipynb
+
+
+CONST -> Add tests
+
+
+UTILS
+    0.1)  Add /_utils/_utils
+    1.1)  Add functions to utils
+    1.2)  Test them
+            - /test/test_utils_utils.py
+
+
+STATS
+    0.1)  Think about more functionality
+            - take a look into R
+    1.1)  Add function
+    1.2)  Test them
+            - test_stats.py
+
+PREPROCESSING (ANALYSIS)
+    1.1)  Add function
+    1.2)  Test them
+            - test_preprocessing.py
+
+PLOT (Ergänzung in /ml/_plot.py)
+    -> DfClassificationPlotter
+        - but in the _plot module!
+    -> DfRegressorPlotter
+        - follows...
+
+- - - - - - ML
+
+ML_PREPROCESSING
+    1.1)  Add function
+    1.2)  Test them
+            - /test/ml/test_preprocessing.py
+
+ML_UTILS
+    1.1)  Add function
+    1.2)  Test them
+            - /test/ml/test_utils.py
+
+
+ML_EVALUATION
+    1.1)  Add function
+    1.2)  Test them
+            - /test/ml/test_evaluation.py
+
+
+ML_MODELLING
+    1.1)  Add function
+    1.2)  Test them
+            - /test/ml/test_modelling.py
+
+
+DB-CLASSES
+    1.1)  Add function
+    1.2)  Test them
+            - /test/db/test_?.py
+
