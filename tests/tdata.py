@@ -5,7 +5,7 @@ import pandas as pd
 import numpy
 
 
-TITANIC_DATA = pd.DataFrame({
+DATA_TITANIC = pd.DataFrame({
     "Survived": [0,
     1,
     1,
@@ -3578,7 +3578,7 @@ TITANIC_DATA = pd.DataFrame({
  7.75],
 })
 
-TIMESERIES_DATA = pd.DataFrame({
+DATA_TIMESERIES = pd.DataFrame({
    "Date": [numpy.datetime64('2021-11-15T00:00:00.000000000'),
  numpy.datetime64('2021-11-16T00:00:00.000000000'),
  numpy.datetime64('2021-11-17T00:00:00.000000000'),

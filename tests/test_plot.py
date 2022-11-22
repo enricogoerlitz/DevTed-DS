@@ -5,7 +5,7 @@ from unittest import TestCase
 
 import matplotlib.pyplot as plt
 import pandas as pd
-from tdata import TIMESERIES_DATA, TITANIC_DATA
+from tdata import DATA_TIMESERIES, DATA_TITANIC
 
 import devted as dt
 
@@ -63,9 +63,10 @@ class TestHistPlot(TestCase):
     """Tests histplot"""
 
     def setUp(self):
+        plt.clf()
         self.X = AGE
         self.Y = None
-        self.DATA = TITANIC_DATA
+        self.DATA = DATA_TITANIC
 
     def test_basic(self):
         """Tests the basic call with default params"""
@@ -74,6 +75,7 @@ class TestHistPlot(TestCase):
             self,
             ax,
             exp_xlabel=self.X,
+            exp_ylabel="Count",
             exp_title=DEFAULT_TITLE
         )
 
@@ -103,12 +105,13 @@ class TestHistPlot(TestCase):
 
 
 class TestCountPlot(TestCase):
-    """Tests histplot"""
+    """Tests countplot"""
 
     def setUp(self):
+        plt.clf()
         self.X = EMBARKED
         self.Y = None
-        self.DATA = TITANIC_DATA
+        self.DATA = DATA_TITANIC
 
     def test_basic(self):
         """Tests the basic call with default params"""
@@ -147,12 +150,13 @@ class TestCountPlot(TestCase):
 
 
 class TestPointPlot(TestCase):
-    """Tests histplot"""
+    """Tests pointplot"""
 
     def setUp(self):
+        plt.clf()
         self.X = CLASS
         self.Y = SURVIVED
-        self.DATA = TITANIC_DATA
+        self.DATA = DATA_TITANIC
 
     def test_basic(self):
         """Tests the basic call with default params"""
@@ -193,12 +197,13 @@ class TestPointPlot(TestCase):
 
 
 class TestScatterPlot(TestCase):
-    """Tests histplot"""
+    """Tests scatterplot"""
 
     def setUp(self):
+        plt.clf()
         self.X = CLASS
         self.Y = SURVIVED
-        self.DATA = TITANIC_DATA
+        self.DATA = DATA_TITANIC
 
     def test_basic(self):
         """Tests the basic call with default params"""
@@ -239,12 +244,13 @@ class TestScatterPlot(TestCase):
 
 
 class TestBarPlot(TestCase):
-    """Tests histplot"""
+    """Tests barplot"""
 
     def setUp(self):
+        plt.clf()
         self.X = EMBARKED
         self.Y = FARE
-        self.DATA = TITANIC_DATA
+        self.DATA = DATA_TITANIC
 
     def test_basic(self):
         """Tests the basic call with default params"""
@@ -288,9 +294,10 @@ class TestLinePlot(TestCase):
     """Tests histplot"""
 
     def setUp(self):
+        plt.clf()
         self.X = DATE
         self.Y = CLOSE
-        self.DATA = TIMESERIES_DATA
+        self.DATA = DATA_TIMESERIES
 
     def test_basic(self):
         """Tests the basic call with default params"""
@@ -334,9 +341,10 @@ class TestRegPlot(TestCase):
     """Tests histplot"""
 
     def setUp(self):
+        plt.clf()
         self.X = CLOSE
         self.Y = CLOSE
-        self.DATA = TIMESERIES_DATA
+        self.DATA = DATA_TIMESERIES
 
     def test_basic(self):
         """Tests the basic call with default params"""
@@ -366,6 +374,50 @@ class TestRegPlot(TestCase):
         ax = dt.regplot(
             x=self.X,
             y=self.Y,
+            data=self.DATA,
+            set_kwargs={
+                "title": TEST_TITLE,
+                "xlabel": TEST_XLABEL,
+                "ylabel": TEST_YLABEL
+            }
+        )
+        check_title_and_labels(self, ax)
+
+
+class TestKdePlot(TestCase):
+    """Tests kdeplot"""
+
+    def setUp(self):
+        plt.clf()
+        self.X = AGE
+        self.DATA = DATA_TITANIC
+
+    def test_basic(self):
+        """Tests the basic call with default params"""
+        ax = dt.kdeplot(x=self.X, data=self.DATA)
+        check_title_and_labels(
+            self,
+            ax,
+            exp_xlabel=self.X,
+            exp_ylabel="Density",
+            exp_title=DEFAULT_TITLE
+        )
+
+    def test_basic_2(self):
+        """Tests the basic call with kwargs"""
+        ax = dt.kdeplot(
+            x=self.X,
+            data=self.DATA,
+            title=TEST_TITLE,
+            xlabel=TEST_XLABEL,
+            ylabel=TEST_YLABEL,
+        )
+        check_title_and_labels(self, ax)
+
+    def test_basic_3(self):
+        """Tests the basic call with set_kwargs"""
+        ax = dt.kdeplot(
+            x=self.X,
             data=self.DATA,
             set_kwargs={
                 "title": TEST_TITLE,

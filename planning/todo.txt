@@ -2,13 +2,10 @@ CONST       -> Add continuously
 TYPING      -> Add continuously
 DECORATORS  -> Add continuously
 
+
 PLOTS
     1.1)  Build basic plots
     1.2)  Test them
-            a)  test_plot.ipynb
-            b)  /test/test_plot.py
-    2.1)  Add wanted features
-    2.2)  Test them
             a)  test_plot.ipynb
             b)  /test/test_plot.py
 
@@ -72,6 +69,13 @@ ML_MODELLING
     1.2)  Test them
             - /test/ml/test_modelling.py
 
+- - - - - - ML END
+
+PLOTS
+    2.1)  Add wanted features
+    2.2)  Test them
+            a)  test_plot.ipynb
+            b)  /test/test_plot.py
 
 DB-CLASSES
     1.1)  Add function

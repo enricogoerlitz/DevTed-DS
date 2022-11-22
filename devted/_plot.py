@@ -251,6 +251,35 @@ def regplot(
     )
 
 
+@zipparams(ignore=BASE.split())
+def kdeplot(
+    *,
+    x: str = None,
+    data: DataFrame = None,
+    title: str = "TITLE",
+    xlabel: Union[str, None] = None,
+    ylabel: Union[str, None] = None,
+    hue: Union[str, None] = None,
+    hue_order: Union[Vector, None] = None,
+    cumulative: bool = False,
+    multiple: Literal["layer", "stack", "fill"] = "layer",
+    ax: Union[plt.Axes, None] = None,
+    set_kwargs: dict = None,
+    zip_params: dict
+) -> plt.Axes:
+    set_kwargs = _prep_set_kwargs(
+        title,
+        xlabel,
+        ylabel,
+        set_kwargs
+    )
+    return _plot(
+        sns.kdeplot,
+        zip_params,
+        set_kwargs
+    )
+
+
 # Private Helper-Functions
 
 

@@ -11,9 +11,8 @@ PLOT
         - lineplot
         - regplot & lmplot in one!
         - kdeplot
-        - kde plot with hue (like in Titanic Facitgrid)
-        ...
-
+    
+    MORE FEATURES->
         + sorted -> bool (by values, by categoriesArr ...)
         + figsize + figsize_cat=[small, medium, large, xlarge]
         + rotate x/y
@@ -21,6 +20,7 @@ PLOT
         + show Data-Table (bool=False!)
     
     -> hinzufügen
+        - kde plot with hue (like in Titanic Facitgrid)
         - barhplot (incl. stacked)
         - plotgrid -> Array of dt.plots (titles: list[str]) ax5.set_title( wenn nötig!
         - scatterkdeplot -> wie googleplaystore -> df_price_cleaned[df_price_cleaned[DOWNLOADS] < 2000000]
