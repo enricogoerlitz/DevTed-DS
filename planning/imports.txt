@@ -1,3 +1,9 @@
 import devted as dt -> preprocessing & plot & util & settings
 import devted.const as dtconst | dtc
 import devted.ml as dtml -> ml preprocessing & modelling & evaluation
+
+-------
+NEW?
+import devted as dt -> preprocessing, settings, constants
+import devted.ml as dtml -> ml preprocessing & modelling & evaluation
+import devted.plot as dtplot -> plots and plot utils
