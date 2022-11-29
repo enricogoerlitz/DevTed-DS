@@ -1,0 +1,14 @@
+[flake8]
+exclude =
+    migrations,
+    __pycache__,
+    __init__.py,
+    admin.py,
+    manage.py,
+    settings.py,
+    env,
+    info.*,
+    djdevted,
+
+ignore = 
+    W504,E701

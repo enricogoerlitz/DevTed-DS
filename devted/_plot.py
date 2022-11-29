@@ -10,7 +10,7 @@ from typing import Literal, Callable, Union
 from .typing import Vector, Marker, LineStyle, PandasObject
 from ._decorators import zipparams
 
-from pandas import Series, DataFrame
+from pandas import Series, DataFrame # noqa
 
 
 BASE = "title xlabel ylabel set_kwargs"
@@ -34,7 +34,8 @@ def histplot(
     kde_kws: Union[dict, None] = None,
     zip_params: dict
 ) -> plt.Axes:
-    if not xlabel: xlabel = x
+    if not xlabel:
+        xlabel = x
     set_kwargs = _prep_set_kwargs(
         title,
         xlabel,
@@ -50,7 +51,7 @@ def histplot(
 
 @zipparams(ignore=ORIENT.split())
 def countplot(
-    *, 
+    *,
     x: str = None,
     data: Union[PandasObject, None] = None,
     title: str = "TITLE",
@@ -227,7 +228,7 @@ def regplot(
     hue_order: Union[Vector, None] = None,
     estimator: Literal["mean", "median", "min", "max"] = "mean",
     ci: int = 95,
-    x_ci: Union[Literal["ci", "sd"], int, None] = "ci", 
+    x_ci: Union[Literal["ci", "sd"], int, None] = "ci",
     scatter: bool = True,
     fit_reg: bool = True,
     marker: Marker = "o",
@@ -294,13 +295,13 @@ def _plot(
 
 
 def _prep_set_kwargs(
-    title: str, 
+    title: str,
     xlabel: Union[str, None],
     ylabel: Union[str, None],
     set_kwargs: Union[dict, None]
 ) -> dict:
     set_kwargs = (
-        {"title": title} | 
+        {"title": title} |
         ({} if not xlabel else {"xlabel": xlabel}) |
         ({} if not ylabel else {"ylabel": ylabel}) |
         ({} if not isinstance(set_kwargs, dict) else set_kwargs)
