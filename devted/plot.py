@@ -10,7 +10,9 @@ from typing import Literal, Callable, Union
 from .typing import Vector, Marker, LineStyle, PandasObject
 from ._decorators import zipparams
 
-from pandas import Series, DataFrame # noqa
+from pandas import Series, DataFrame  # noqa
+
+from devted._utils._plot import *  # noqa
 
 
 BASE = "title xlabel ylabel set_kwargs"

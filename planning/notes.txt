@@ -76,6 +76,7 @@ PLOT
             dirpath = get_plot_dirpath(notebook_name)
             if exists(dirpath):
                 shutil.rmtree(dirpath)
+
         ----------------
         def plot_target_relation(column_name):
             _, axes = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
@@ -140,6 +141,8 @@ UTILS
     -> dt.set() -> alle settings setzen (default wie gewollt)
     -> pvttbl_to_df (to_records)
     -> df_checkpoint
+        - export eines df mit namen df_checkpoint_export (als further?)
+        - returnt das gelesene df df_checkpoint_read (als further?)
     -> delete_checkpoints#
     -> PDF Reader -> Text and as image PyPDF2, pdf2image
     -> get_date_format("DD-MM-YYYY") or HELP_DATE_FORMATS -> print dateformats
@@ -158,6 +161,7 @@ UTILS
         # validate...
         return df[column].astype(dt.const.CATEGORY).cat.reorder_categories(category_order, ordered=True)
     ----------------
+    def df_checkpoint   
 
 STATS
     -> Kontingenztabelle [TDD_TEST]

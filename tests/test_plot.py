@@ -1,13 +1,13 @@
 """
-Tests the module _plot.py
+Tests the module plot.py
 """
 from unittest import TestCase
 
 import matplotlib.pyplot as plt
-import pandas as pd
 from tdata import DATA_TIMESERIES, DATA_TITANIC
 
-import devted as dt
+import devted.plot as dtplot
+
 
 # Helper
 
@@ -51,6 +51,9 @@ def check_title_and_labels(
     test_cls_ptr.assertEqual(ylabel, exp_ylabel, err_msg)
 
 
+# Tests
+
+
 class TestHelper(TestCase):
     """Tests helper functions of _plot.py module"""
 
@@ -70,7 +73,7 @@ class TestHistPlot(TestCase):
 
     def test_basic(self):
         """Tests the basic call with default params"""
-        ax = dt.histplot(x=self.X, data=self.DATA)
+        ax = dtplot.histplot(x=self.X, data=self.DATA)
         check_title_and_labels(
             self,
             ax,
@@ -81,7 +84,7 @@ class TestHistPlot(TestCase):
 
     def test_basic_2(self):
         """Tests the basic call with kwargs"""
-        ax = dt.histplot(
+        ax = dtplot.histplot(
             x=self.X,
             data=self.DATA,
             title=TEST_TITLE,
@@ -92,7 +95,7 @@ class TestHistPlot(TestCase):
 
     def test_basic_3(self):
         """Tests the basic call with set_kwargs"""
-        ax = dt.histplot(
+        ax = dtplot.histplot(
             x=self.X,
             data=self.DATA,
             set_kwargs={
@@ -115,7 +118,7 @@ class TestCountPlot(TestCase):
 
     def test_basic(self):
         """Tests the basic call with default params"""
-        ax = dt.countplot(x=self.X, data=self.DATA)
+        ax = dtplot.countplot(x=self.X, data=self.DATA)
         check_title_and_labels(
             self,
             ax,
@@ -126,7 +129,7 @@ class TestCountPlot(TestCase):
 
     def test_basic_2(self):
         """Tests the basic call with kwargs"""
-        ax = dt.countplot(
+        ax = dtplot.countplot(
             x=self.X,
             data=self.DATA,
             title=TEST_TITLE,
@@ -137,7 +140,7 @@ class TestCountPlot(TestCase):
 
     def test_basic_3(self):
         """Tests the basic call with set_kwargs"""
-        ax = dt.countplot(
+        ax = dtplot.countplot(
             x=self.X,
             data=self.DATA,
             set_kwargs={
@@ -160,7 +163,7 @@ class TestPointPlot(TestCase):
 
     def test_basic(self):
         """Tests the basic call with default params"""
-        ax = dt.pointplot(x=self.X, y=self.Y, data=self.DATA)
+        ax = dtplot.pointplot(x=self.X, y=self.Y, data=self.DATA)
         check_title_and_labels(
             self,
             ax,
@@ -171,7 +174,7 @@ class TestPointPlot(TestCase):
 
     def test_basic_2(self):
         """Tests the basic call with kwargs"""
-        ax = dt.pointplot(
+        ax = dtplot.pointplot(
             x=self.X,
             y=self.Y,
             data=self.DATA,
@@ -183,7 +186,7 @@ class TestPointPlot(TestCase):
 
     def test_basic_3(self):
         """Tests the basic call with set_kwargs"""
-        ax = dt.pointplot(
+        ax = dtplot.pointplot(
             x=self.X,
             y=self.Y,
             data=self.DATA,
@@ -207,7 +210,7 @@ class TestScatterPlot(TestCase):
 
     def test_basic(self):
         """Tests the basic call with default params"""
-        ax = dt.scatterplot(x=self.X, y=self.Y, data=self.DATA)
+        ax = dtplot.scatterplot(x=self.X, y=self.Y, data=self.DATA)
         check_title_and_labels(
             self,
             ax,
@@ -218,7 +221,7 @@ class TestScatterPlot(TestCase):
 
     def test_basic_2(self):
         """Tests the basic call with kwargs"""
-        ax = dt.scatterplot(
+        ax = dtplot.scatterplot(
             x=self.X,
             y=self.Y,
             data=self.DATA,
@@ -230,7 +233,7 @@ class TestScatterPlot(TestCase):
 
     def test_basic_3(self):
         """Tests the basic call with set_kwargs"""
-        ax = dt.scatterplot(
+        ax = dtplot.scatterplot(
             x=self.X,
             y=self.Y,
             data=self.DATA,
@@ -254,7 +257,7 @@ class TestBarPlot(TestCase):
 
     def test_basic(self):
         """Tests the basic call with default params"""
-        ax = dt.barplot(x=self.X, y=self.Y, data=self.DATA)
+        ax = dtplot.barplot(x=self.X, y=self.Y, data=self.DATA)
         check_title_and_labels(
             self,
             ax,
@@ -265,7 +268,7 @@ class TestBarPlot(TestCase):
 
     def test_basic_2(self):
         """Tests the basic call with kwargs"""
-        ax = dt.barplot(
+        ax = dtplot.barplot(
             x=self.X,
             y=self.Y,
             data=self.DATA,
@@ -277,7 +280,7 @@ class TestBarPlot(TestCase):
 
     def test_basic_3(self):
         """Tests the basic call with set_kwargs"""
-        ax = dt.barplot(
+        ax = dtplot.barplot(
             x=self.X,
             y=self.Y,
             data=self.DATA,
@@ -301,7 +304,7 @@ class TestLinePlot(TestCase):
 
     def test_basic(self):
         """Tests the basic call with default params"""
-        ax = dt.lineplot(x=self.X, y=self.Y, data=self.DATA)
+        ax = dtplot.lineplot(x=self.X, y=self.Y, data=self.DATA)
         check_title_and_labels(
             self,
             ax,
@@ -312,7 +315,7 @@ class TestLinePlot(TestCase):
 
     def test_basic_2(self):
         """Tests the basic call with kwargs"""
-        ax = dt.lineplot(
+        ax = dtplot.lineplot(
             x=self.X,
             y=self.Y,
             data=self.DATA,
@@ -324,7 +327,7 @@ class TestLinePlot(TestCase):
 
     def test_basic_3(self):
         """Tests the basic call with set_kwargs"""
-        ax = dt.lineplot(
+        ax = dtplot.lineplot(
             x=self.X,
             y=self.Y,
             data=self.DATA,
@@ -348,7 +351,7 @@ class TestRegPlot(TestCase):
 
     def test_basic(self):
         """Tests the basic call with default params"""
-        ax = dt.regplot(x=self.X, y=self.Y, data=self.DATA)
+        ax = dtplot.regplot(x=self.X, y=self.Y, data=self.DATA)
         check_title_and_labels(
             self,
             ax,
@@ -359,7 +362,7 @@ class TestRegPlot(TestCase):
 
     def test_basic_2(self):
         """Tests the basic call with kwargs"""
-        ax = dt.regplot(
+        ax = dtplot.regplot(
             x=self.X,
             y=self.Y,
             data=self.DATA,
@@ -371,7 +374,7 @@ class TestRegPlot(TestCase):
 
     def test_basic_3(self):
         """Tests the basic call with set_kwargs"""
-        ax = dt.regplot(
+        ax = dtplot.regplot(
             x=self.X,
             y=self.Y,
             data=self.DATA,
@@ -394,7 +397,7 @@ class TestKdePlot(TestCase):
 
     def test_basic(self):
         """Tests the basic call with default params"""
-        ax = dt.kdeplot(x=self.X, data=self.DATA)
+        ax = dtplot.kdeplot(x=self.X, data=self.DATA)
         check_title_and_labels(
             self,
             ax,
@@ -405,7 +408,7 @@ class TestKdePlot(TestCase):
 
     def test_basic_2(self):
         """Tests the basic call with kwargs"""
-        ax = dt.kdeplot(
+        ax = dtplot.kdeplot(
             x=self.X,
             data=self.DATA,
             title=TEST_TITLE,
@@ -416,7 +419,7 @@ class TestKdePlot(TestCase):
 
     def test_basic_3(self):
         """Tests the basic call with set_kwargs"""
-        ax = dt.kdeplot(
+        ax = dtplot.kdeplot(
             x=self.X,
             data=self.DATA,
             set_kwargs={

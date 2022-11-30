@@ -4,6 +4,6 @@ import devted.ml as dtml -> ml preprocessing & modelling & evaluation
 
 -------
 NEW?
-import devted as dt -> preprocessing, settings, constants
+import devted as dt -> preprocessing, settings, constants, general utils (_utils._utils)
+import devted.plot as dtplot -> plots and plot utils (_utils._plot)
 import devted.ml as dtml -> ml preprocessing & modelling & evaluation
-import devted.plot as dtplot -> plots and plot utils
