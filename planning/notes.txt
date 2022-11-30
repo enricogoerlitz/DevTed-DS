@@ -138,6 +138,9 @@ UTILS
     -> missingno in dt.msno... einbetten
     -> reorder columns function -> [add_col(data: Series, DaraFrame = None, to=index | colname = None, before=True), move_col(Series | DataFrame), to: int | str = 0]
         -> weitere?
+    -> addRow
+    -> addRows
+    -> dt.heatmap
     -> dt.set() -> alle settings setzen (default wie gewollt)
     -> pvttbl_to_df (to_records)
     -> df_checkpoint
