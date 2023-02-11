@@ -109,7 +109,8 @@ PLOT
             g = sns.countplot(x=column_name, data=df, color="C0")
             g.tick_params(axis='x', rotation=45)
             g.set_title(f"Distribution of {column_name}")
-
+        DataFramePlotter -> in notize hinzufügen, dass df.copy als df gespeichert wird!
+        + .refresh_df(df) -> self.df = df.copy()
 CONST (Konstanten für alle settings etc!)
     -> def func(method: Literal['simple_method', 'some_other_method']): => !!! USE THIS !!!
     -> OR:
@@ -197,6 +198,9 @@ TYPING
 --------------------------------------- ML & DL ---------------------------------------
 
 plot
+DfClassificationPlotter -> DataFrameClassificationPlotter (self.df = df.copy()
++ .refresh_df(df) -> self.df = df.copy()
+
     DfClassificationPlotter(df, ignore=[col1, col2...])
         -> info()
         -> describe_nummeric

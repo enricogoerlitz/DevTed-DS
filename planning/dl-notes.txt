@@ -1,0 +1,10 @@
+plot
+    - plot loss curves
+
+Classification
+    - 
+Regression
+    - 
+
+CNN
+    - 
