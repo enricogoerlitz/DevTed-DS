@@ -7,4 +7,11 @@ Regression
     - 
 
 CNN
-    - 
+    - load_and_prep_image
+    - view_random_image (with label)
+    - get_random_image (wih label -> for testing the accuracy)
+    - get_rand_img_filepath
+    - get_rand_img
+    - view_img
+    - view_random_img
+    - pred_binary, pred_multi, view_pred_binary, view_pred_multi
